@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pera_soft1/home/view/home_page.dart';
-import 'package:pera_soft1/home/viewModel/view_model.dart';
+import 'package:pera_soft1/feature/home/presentation/view/home_page.dart';
+import 'package:pera_soft1/feature/home/presentation/view/home_screen.dart';
+import 'package:pera_soft1/feature/home/viewModel/view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -12,18 +13,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [  ChangeNotifierProvider(create: (context) => HomePageViewModel()),],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: HomePage(),
-       
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
+      home: //ChangeNotifierProvider(
+       // create: (context) => ProductService(),
+       // child: 
+       HomePage()   //),
+     
     );
   }
 }
