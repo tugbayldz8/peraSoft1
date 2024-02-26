@@ -6,4 +6,5 @@ class StringConstants {
   static String title = 'title';
   static String price = 'price';
   static String image = 'image';
+  static String hataolustu = 'Hata Oluştu:';
 }

@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:pera_soft1/feature/home/data/services/product/product_service.dart';
 import '../data/models/product/product_model.dart';
 
-
 class HomePageViewModel extends ChangeNotifier {
-  HomePageViewModel() {}
+  HomePageViewModel({required this.productService});
+
+  final ProductService productService;
 
   Future<List<Product>> fetchProducts() async {
-    final response =
-        await http.get(Uri.parse('https://fakestoreapi.com/products'));
-    if (response.statusCode == 200) {
-      List<dynamic> data = json.decode(response.body);
-      List<Product> deneme =
-          data.map((item) => Product.fromJson(item)).toList();
-      return deneme;
-    } else {
-      throw Exception('Bir hata oluştu');
-    }
+    return await productService.fetchProducts();
   }
 
   List<Product> getMostExpensiveProductsPerCategory(List<Product> products) {

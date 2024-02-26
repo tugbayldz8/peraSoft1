@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pera_soft1/feature/home/data/services/product/product_service.dart';
 import 'package:pera_soft1/feature/home/presentation/view/first_page.dart';
 import 'package:pera_soft1/feature/home/presentation/view/second_page.dart';
 import 'package:pera_soft1/product/theme/custom_color_scheme.dart';
 import 'package:pera_soft1/product/utils/string_constants.dart';
 import 'package:provider/provider.dart';
-
+import '../../../../product/utils/edge_insets_constants.dart';
 import '../../viewModel/view_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,8 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final viewModel = HomePageViewModel();
-
+final constantsEdgeInsets=ConstantEdgeInsets();
   int _selectedIndex = 0;
 
   @override
@@ -42,11 +42,11 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: CustomBottomNavbar(),
       body: ChangeNotifierProvider(
-        create: (context) => HomePageViewModel(),
+        create: (context) => HomePageViewModel(productService: ProductService()),
         child: Consumer<HomePageViewModel>(
           builder: (context, viewModel, child) {
             return Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: constantsEdgeInsets.constantEdgeInsets10x,
               child: _selectedIndex == 0
                   ? FirstPage()
                   : _selectedIndex == 1
@@ -63,11 +63,11 @@ class _HomePageState extends State<HomePage> {
     return BottomNavigationBar(
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon:const  Icon(Icons.home),
           label: StringConstants.kategoriler,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: const Icon(Icons.person),
           label: StringConstants.listeler,
         ),
       ],

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:pera_soft1/product/extensions/context_extensions.dart';
 import 'package:pera_soft1/product/theme/custom_color_scheme.dart';
+import 'package:pera_soft1/product/utils/edge_insets_constants.dart';
 import 'package:pera_soft1/product/utils/string_constants.dart';
 import 'package:provider/provider.dart';
 import '../../data/models/product/product_model.dart';
 import '../../viewModel/view_model.dart';
 
 class FirstPage extends StatefulWidget {
-  FirstPage({super.key});
+ const FirstPage({super.key});
 
   @override
   State<FirstPage> createState() => _FirstPageState();
 }
 
 class _FirstPageState extends State<FirstPage> {
-  final viewModel = HomePageViewModel();
+  
+  final constantsEdgeInsets=ConstantEdgeInsets();
   int _currentPageIndex = 0;
 
   @override
@@ -47,7 +49,7 @@ class _FirstPageState extends State<FirstPage> {
                           Card(
                             elevation: 3,
                             child: Padding(
-                              padding: EdgeInsets.all(10),
+                              padding: constantsEdgeInsets.constantEdgeInsets10x,
                               child: Text(
                                 product.category,
                                 style: Theme.of(context)
@@ -93,7 +95,7 @@ class _FirstPageState extends State<FirstPage> {
                       Product product = mostExpensiveProducts[index];
                       return Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: constantsEdgeInsets.constantEdgeInsets10x,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -132,7 +134,7 @@ class _FirstPageState extends State<FirstPage> {
                   children: List.generate(
                     mostExpensiveProducts.length,
                     (index) => Container(
-                      margin: EdgeInsets.all(3),
+                      margin: constantsEdgeInsets.constantEdgeInsets3x,
                       width: MediaQueryExtension(context).lowValue,
                       height: MediaQueryExtension(context).lowValue,
                       decoration: BoxDecoration(
@@ -148,7 +150,7 @@ class _FirstPageState extends State<FirstPage> {
                 Expanded(
                   child: GridView.builder(
                     itemCount: snapshot.data!.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2),
                     itemBuilder: (context, index) {
                       Product product = snapshot.data![index];
@@ -157,7 +159,7 @@ class _FirstPageState extends State<FirstPage> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: constantsEdgeInsets.constantEdgeInsets8x,
                               child: Image.network(
                                 product.image,
                                 width: MediaQueryExtension(context)
@@ -168,7 +170,7 @@ class _FirstPageState extends State<FirstPage> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8),
+                              padding:constantsEdgeInsets.constantEdgeInsets8x,
                               child: Text(
                                 product.category,
                                 style: Theme.of(context)
@@ -189,10 +191,11 @@ class _FirstPageState extends State<FirstPage> {
               ],
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
     );
   }
+
 }
