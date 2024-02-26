@@ -1,79 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../data/models/product/product_model.dart';
+
 
 class HomePageViewModel extends ChangeNotifier {
-  List<dynamic> categories = [];
-  List<dynamic> topProducts = [];
-  List<dynamic> images = [];
-  List<dynamic> products = [];
- 
-   HomePageViewModel() {
-    fetchCategories();
-    fetchProducts();
-  }
+  HomePageViewModel() {}
 
-  Future<void> fetchProducts() async {
+  Future<List<Product>> fetchProducts() async {
     final response =
         await http.get(Uri.parse('https://fakestoreapi.com/products'));
-
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
-
-      products = List<dynamic>.from(data);
-      notifyListeners();
+      List<Product> deneme =
+          data.map((item) => Product.fromJson(item)).toList();
+      return deneme;
     } else {
-      print('Hata kodu: ${response.statusCode}');
+      throw Exception('Bir hata oluştu');
     }
   }
 
-  Future<void> fetchCategories() async {
-    final response = await http
-        .get(Uri.parse('https://fakestoreapi.com/products/categories'));
+  List<Product> getMostExpensiveProductsPerCategory(List<Product> products) {
+    Map<String, Product> mostExpensiveProductsMap = {};
 
-    if (response.statusCode == 200) {
-      List<dynamic> data = json.decode(response.body);
-        categories = List<String>.from(data);
-     notifyListeners();
-      await fetchTopProducts();
-    } else {
-      print('Hata kodu: ${response.statusCode}');
-    }
-  }
+    for (Product product in products) {
+      String category = product.category;
 
-  Future<void> fetchTopProducts() async {
-    for (String category in categories) {
-      final response = await http.get(
-          Uri.parse('https://fakestoreapi.com/products/category/$category'));
-
-      if (response.statusCode == 200) {
-        List<dynamic> products = json.decode(response.body);
-        if (products.isNotEmpty) {
-          products.sort((a, b) => b['price'].compareTo(a['price']));
-          topProducts.add(products.first);
-           notifyListeners();
+      if (mostExpensiveProductsMap.containsKey(category)) {
+        Product existingProduct = mostExpensiveProductsMap[category]!;
+        if (product.price > existingProduct.price) {
+          mostExpensiveProductsMap[category] = product;
         }
       } else {
-        print('Hata kodu: ${response.statusCode}');
+        mostExpensiveProductsMap[category] = product;
       }
     }
+
+    return mostExpensiveProductsMap.values.toList();
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

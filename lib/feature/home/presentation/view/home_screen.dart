@@ -2,7 +2,7 @@
 // import 'package:http/http.dart' as http;
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
-// import '../model/product.dart';
+// import '../../data/models/product/product_model.dart';
 
 // class ProductService extends ChangeNotifier {
 //   int _selectedIndex = 0;

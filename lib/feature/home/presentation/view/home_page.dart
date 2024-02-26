@@ -22,9 +22,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    viewModel.fetchCategories();
-    viewModel.fetchTopProducts();
-    viewModel.fetchProducts();
+    
   }
 
   void _onItemTapped(int index) {
