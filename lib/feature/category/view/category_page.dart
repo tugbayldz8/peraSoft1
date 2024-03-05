@@ -4,28 +4,32 @@ import 'package:pera_soft1/product/theme/custom_color_scheme.dart';
 import 'package:pera_soft1/product/utils/edge_insets_constants.dart';
 import 'package:pera_soft1/product/utils/string_constants.dart';
 import 'package:provider/provider.dart';
-import '../../data/models/product/product_model.dart';
-import '../../viewModel/view_model.dart';
+import '../../home/data/models/product/product_model.dart';
+import '../../home/viewModel/view_model.dart';
 
-class FirstPage extends StatefulWidget {
- const FirstPage({super.key});
+class CategoryPage extends StatefulWidget {
+  const CategoryPage({super.key});
 
   @override
-  State<FirstPage> createState() => _FirstPageState();
+  State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _FirstPageState extends State<FirstPage> {
-  
-  final constantsEdgeInsets=ConstantEdgeInsets();
+class _CategoryPageState extends State<CategoryPage> {
+  final constantsEdgeInsets = ConstantEdgeInsets();
   int _currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: CustomColorScheme.appBarBackground,
+        title: Center(
+          child: Text(StringConstants.kategoriler),
+        ),
+      ),
       body: FutureBuilder<List<Product>>(
         future: Provider.of<HomePageViewModel>(context).fetchProducts(),
         builder: (context, snapshot) {
-         
           if (snapshot.hasError) {
             return Center(child: Text('Hata oluştu: ${snapshot.error}'));
           }
@@ -49,7 +53,8 @@ class _FirstPageState extends State<FirstPage> {
                           Card(
                             elevation: 3,
                             child: Padding(
-                              padding: constantsEdgeInsets.constantEdgeInsets10x,
+                              padding:
+                                  constantsEdgeInsets.constantEdgeInsets10x,
                               child: Text(
                                 product.category,
                                 style: Theme.of(context)
@@ -131,7 +136,7 @@ class _FirstPageState extends State<FirstPage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
+                  children: List.generate(   //****DÜZELTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
                     mostExpensiveProducts.length,
                     (index) => Container(
                       margin: constantsEdgeInsets.constantEdgeInsets3x,
@@ -150,8 +155,9 @@ class _FirstPageState extends State<FirstPage> {
                 Expanded(
                   child: GridView.builder(
                     itemCount: snapshot.data!.length,
-                    gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
                     itemBuilder: (context, index) {
                       Product product = snapshot.data![index];
                       return Card(
@@ -170,7 +176,7 @@ class _FirstPageState extends State<FirstPage> {
                               ),
                             ),
                             Padding(
-                              padding:constantsEdgeInsets.constantEdgeInsets8x,
+                              padding: constantsEdgeInsets.constantEdgeInsets8x,
                               child: Text(
                                 product.category,
                                 style: Theme.of(context)
@@ -197,5 +203,4 @@ class _FirstPageState extends State<FirstPage> {
       ),
     );
   }
-
 }

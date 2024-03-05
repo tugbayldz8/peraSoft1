@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pera_soft1/feature/home/data/services/product/product_service.dart';
+import 'package:pera_soft1/feature/home/data/repositories/services/product/product_service.dart';
 import '../data/models/product/product_model.dart';
 
 class HomePageViewModel extends ChangeNotifier {

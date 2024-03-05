@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final class CustomColorScheme{
+
   static const Color selectedItemColor = Colors.blue;
   static const Color firstAppbarColor = Colors.yellow;
   static const Color containerColor = Color.fromARGB(103, 226, 238, 58);
