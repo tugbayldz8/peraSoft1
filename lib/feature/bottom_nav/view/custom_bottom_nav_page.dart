@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import '../widget/bottom_nav_widget.dart';
-import '../widget/get_page_widget.dart';
+import '../widget/bottom_nav_builder_widget.dart';
 
 class CustomBottomNav extends StatelessWidget {
-  CustomBottomNav({super.key});
-  final ValueNotifier<int> _selectedIndexNotifier = ValueNotifier<int>(0);
-
+  const CustomBottomNav({super.key, required this.child});
+  final Widget? child;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder<int>(
-        valueListenable: _selectedIndexNotifier,
-        builder: (context, selectedIndex, _) {
-          return  buildGetPage(selectedIndex);
-        },
-      ),
-      bottomNavigationBar: BottomNav(
-        selectedIndexNotifier: _selectedIndexNotifier,
-      ),
+      body: child,
+      bottomNavigationBar: const BottomNavBuilder(),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../product/widget/list_view_builder_widget.dart';
+import '../../../../product/widget/custom_list_view_builder_widget.dart';
 import '../../../../product/theme/custom_color_scheme.dart';
 import '../../../../product/utils/string_constants.dart';
 import '../../../home/data/models/product/product_model.dart';
@@ -12,10 +12,10 @@ class TopListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: CustomColorScheme.appBarBackground,
-        title: Center(child: Text(StringConstants.topList)),
-      ),
+      appBar:AppBar(
+      backgroundColor: CustomColorScheme.appBarBackground,
+      title: Center(child: Text(StringConstants.enPahaliUrunler)),
+    ),
       body: FutureBuilder<List<Product>>(
         future: Provider.of<HomePageViewModel>(context).fetchProducts(),
         builder: (context, snapshot) {
@@ -24,7 +24,8 @@ class TopListPage extends StatelessWidget {
           }
           if (snapshot.hasError) {
             return Center(
-                child: Text('${StringConstants.hataolustu}+ ${snapshot.error}'));
+                child:
+                    Text('${StringConstants.hataolustu}+ ${snapshot.error}'));
           }
           if (snapshot.hasData) {
             List<Product> sortedProducts = snapshot.data!;

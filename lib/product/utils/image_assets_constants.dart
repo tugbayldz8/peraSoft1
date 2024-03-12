@@ -1,4 +1,9 @@
 
+
+import 'package:flutter/material.dart';
+
+@immutable
 final class ImageConstants {
-  static String landingPageImage = 'assets/images/alisveris.jpg'; 
+  const ImageConstants._();
+  static String landingPageImage = 'assets/images/alisveris.jpg';
 }
