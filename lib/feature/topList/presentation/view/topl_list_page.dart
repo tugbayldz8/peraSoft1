@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pera_soft1/product/widget/custom_appbar_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../../product/widget/custom_list_view_builder_widget.dart';
-import '../../../../product/theme/custom_color_scheme.dart';
 import '../../../../product/utils/string_constants.dart';
 import '../../../home/data/models/product/product_model.dart';
 import '../../../home/viewModel/view_model.dart';
@@ -12,10 +12,7 @@ class TopListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-      backgroundColor: CustomColorScheme.appBarBackground,
-      title: Center(child: Text(StringConstants.enPahaliUrunler)),
-    ),
+      appBar:CustomAppBarWidget(appBarTitle: StringConstants.enPahaliUrunler),
       body: FutureBuilder<List<Product>>(
         future: Provider.of<HomePageViewModel>(context).fetchProducts(),
         builder: (context, snapshot) {

@@ -3,6 +3,7 @@ import 'package:pera_soft1/product/extensions/context_extensions.dart';
 import 'package:pera_soft1/product/theme/custom_color_scheme.dart';
 import 'package:pera_soft1/product/utils/string_constants.dart';
 import 'package:provider/provider.dart';
+import '../../../../product/widget/custom_appbar_widget.dart';
 import '../../../home/data/models/product/product_model.dart';
 import '../../../home/viewModel/view_model.dart';
 import '../widget/container_widget.dart';
@@ -21,12 +22,7 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: CustomColorScheme.appBarBackground,
-        title: Center(
-          child: Text(StringConstants.kategoriler),
-        ),
-      ),
+      appBar: CustomAppBarWidget(appBarTitle: StringConstants.kategoriler),
       body: SingleChildScrollView(
         child: FutureBuilder<List<Product>>(
           future: Provider.of<HomePageViewModel>(context).fetchProducts(),
@@ -189,3 +185,4 @@ class _CategoryPageState extends State<CategoryPage> {
     );
   }
 }
+
