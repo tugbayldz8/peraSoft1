@@ -38,7 +38,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   productService.getMostExpensiveProductsPerCategory(products);
               return Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: MediaQueryExtension(context).veryhighValue1x,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -129,7 +129,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         currentPageIndex: _currentPageIndex),
                   ),
                   SizedBox(height: MediaQueryExtension(context).lowValue),
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height,
                     child: GridView.builder(
                       itemCount: snapshot.data!.length,

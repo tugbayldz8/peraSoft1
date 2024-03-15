@@ -11,7 +11,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
-
   final AppRouter _appRoute = AppRouter();
 
   @override
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
         builder: (context, themeNotifier, _) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            //theme: context.watch<ThemeNotifier>().currentTheme,
+            theme: context.watch<ThemeNotifier>().currentTheme,
             routeInformationParser: _appRoute.router.routeInformationParser,
             routeInformationProvider: _appRoute.router.routeInformationProvider,
             routerDelegate: _appRoute.router.routerDelegate,

@@ -80,7 +80,7 @@ final class AppRouter {
         name: "home_page",
         path: '/home_page',
         builder: (context, state) {
-          return HomePage();
+          return const HomePage();
         },
       ),
     ],

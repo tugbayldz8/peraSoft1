@@ -9,8 +9,7 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Stack(
+      body: Stack(
           fit: StackFit.expand,
           children: [
           const ImageAssetWidget(),
@@ -21,7 +20,7 @@ class LandingPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      
     );
   }
 }
