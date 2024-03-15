@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pera_soft1/product/widget/custom_appbar_widget.dart';
-import 'package:provider/provider.dart';
-import '../../../../product/widget/custom_list_view_builder_widget.dart';
 import '../../../../product/utils/string_constants.dart';
-import '../../../home/data/models/product/product_model.dart';
-import '../../../home/viewModel/view_model.dart';
+import '../widget/future_builder_widget.dart';
 
 class TopListPage extends StatelessWidget {
   const TopListPage({super.key});
@@ -13,26 +10,7 @@ class TopListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:CustomAppBarWidget(appBarTitle: StringConstants.enPahaliUrunler),
-      body: FutureBuilder<List<Product>>(
-        future: Provider.of<HomePageViewModel>(context).fetchProducts(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(
-                child:
-                    Text('${StringConstants.hataolustu}+ ${snapshot.error}'));
-          }
-          if (snapshot.hasData) {
-            List<Product> sortedProducts = snapshot.data!;
-            sortedProducts.sort((a, b) => b.price.compareTo(a.price));
-            return CustomListViewBuilderWidget(sortedProducts: sortedProducts);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
+      body:const FutureBuilderWidget(),
     );
   }
 }
