@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pera_soft1/feature/home/data/repositories/services/product/product_service.dart';
 import 'package:pera_soft1/product/extensions/context_extensions.dart';
 import 'package:pera_soft1/product/theme/custom_color_scheme.dart';
-import 'package:pera_soft1/product/utils/string_constants.dart';
+import 'package:pera_soft1/product/utils/string/string_constants.dart';
 import 'package:provider/provider.dart';
+import '../../../../product/provider/custom_provider.dart';
 import '../../../../product/widget/custom_appbar_widget.dart';
 import '../../../home/data/models/product/product_model.dart';
 import '../../../home/viewModel/view_model.dart';
@@ -19,23 +21,24 @@ class CategoryPage extends StatefulWidget {
 class _CategoryPageState extends State<CategoryPage> {
   int _currentPageIndex = 0;
 
+  final CustomProvider _provider = HomePageViewModelProvider();
+  final _homeViewModel = HomePageViewModel(productService: ProductService());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWidget(appBarTitle: StringConstants.kategoriler),
       body: SingleChildScrollView(
         child: FutureBuilder<List<Product>>(
-          future: Provider.of<HomePageViewModel>(context).fetchProducts(),
+          future: _provider.fetchProducts(context),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text('Hata oluştu: ${snapshot.error}'));
             }
             if (snapshot.hasData) {
-              HomePageViewModel productService =
-                  Provider.of<HomePageViewModel>(context);
               List<Product> products = snapshot.data!;
               List<Product> mostExpensiveProducts =
-                  productService.getMostExpensiveProductsPerCategory(products);
+                  _homeViewModel.getMostExpensiveProductsPerCategory(products);
               return Column(
                 children: [
                   SizedBox(
@@ -185,4 +188,3 @@ class _CategoryPageState extends State<CategoryPage> {
     );
   }
 }
-

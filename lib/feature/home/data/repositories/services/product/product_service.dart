@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:pera_soft1/product/utils/string_constants.dart';
+import 'package:pera_soft1/product/utils/string/string_constants.dart';
 import '../../../models/product/product_model.dart';
 import 'package:http/http.dart' as http;
 

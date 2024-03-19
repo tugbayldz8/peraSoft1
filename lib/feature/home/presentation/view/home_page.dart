@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:pera_soft1/feature/bottom_nav/view/custom_bottom_nav_page.dart';
+import 'package:pera_soft1/product/provider/custom_provider.dart';
 import 'package:pera_soft1/product/widget/custom_appbar_widget.dart';
-import 'package:provider/provider.dart';
 import '../../../../product/widget/custom_list_view_builder_widget.dart';
-import '../../../../product/utils/string_constants.dart';
+import '../../../../product/utils/string/string_constants.dart';
 import '../../../home/data/models/product/product_model.dart';
-import '../../../home/viewModel/view_model.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+   HomePage({super.key});
+
+  final CustomProvider _provider = HomePageViewModelProvider();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBarWidget(appBarTitle: StringConstants.listeler) ,                     
+      appBar: CustomAppBarWidget(appBarTitle: StringConstants.listeler),
       body: CustomBottomNav(
         child: FutureBuilder<List<Product>>(
-          future: Provider.of<HomePageViewModel>(context).fetchProducts(),
+          future: _provider.fetchProducts(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -39,16 +40,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-// final class CustomAppBar {
-//   AppBar customAppBar({required String appBarTitle}) {
-//     return AppBar(
-//       backgroundColor: CustomColorScheme.appBarBackground,
-//       title: Row(
-//         children: [
-//           Center(child: Text(appBarTitle)),
-//         ],
-//       ),
-//     );
-//   }
-// }

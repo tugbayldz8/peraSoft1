@@ -47,7 +47,9 @@ final class AppRouter {
                       type: PageTransitionType.fade,
                     ).child;
                   },
-                  child: const CategoryPage(),
+                  child: IndexedStack(
+                    index: 1,
+                    children: [const CategoryPage()]),
                 );
               },
             ),
@@ -64,7 +66,9 @@ final class AppRouter {
                       type: PageTransitionType.fade,
                     ).child;
                   },
-                  child: const TopListPage(),
+                  child: IndexedStack(
+                    index: 2,
+                    children: [const TopListPage()]),
                 );
               },
             ),
@@ -80,7 +84,7 @@ final class AppRouter {
         name: "home_page",
         path: '/home_page',
         builder: (context, state) {
-          return const HomePage();
+          return  HomePage();
         },
       ),
     ],

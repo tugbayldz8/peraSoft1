@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+
+@immutable
 final class StringConstants {
-  StringConstants._();
+  const StringConstants._();
   static String kategoriler = 'Kategoriler';
   static String listeler = 'Listeler';
   static String topList = 'En İyiler';

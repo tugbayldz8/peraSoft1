@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../product/utils/image_assets_constants.dart';
+import '../../../../product/utils/image/image_assets_constants.dart';
 
 final class ImageAssetWidget extends StatelessWidget {
   const ImageAssetWidget({

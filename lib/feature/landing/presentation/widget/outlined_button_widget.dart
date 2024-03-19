@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pera_soft1/product/utils/string_constants.dart';
+import 'package:pera_soft1/product/utils/string/string_constants.dart';
 import '../../../../product/theme/custom_color_scheme.dart';
 import 'package:pera_soft1/product/extensions/context_extensions.dart';
 

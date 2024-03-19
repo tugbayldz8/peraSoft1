@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pera_soft1/product/extensions/context_extensions.dart';
 import '../../../product/theme/custom_color_scheme.dart';
-import '../../../product/utils/string_constants.dart';
+import '../../../product/utils/string/string_constants.dart';
 
 class BottomNavBuilder extends StatefulWidget {
   const BottomNavBuilder({super.key});
@@ -10,47 +11,69 @@ class BottomNavBuilder extends StatefulWidget {
   State<BottomNavBuilder> createState() => _BottomNavBuilderState();
 }
 
-int currentIndex = 0;
-
 class _BottomNavBuilderState extends State<BottomNavBuilder> {
+
+  int currentIndex = 0;
+
+  List<BottomNavigationBarItem> bottomNavigationBarItemList() {
+    return [
+      buildNavigationBarItem(icon: Icons.home, index: 0),
+      buildNavigationBarItem(icon: Icons.category, index: 1),
+      buildNavigationBarItem(icon: Icons.list, index: 2),
+    ];
+  }
+
+  String _labelText(int index) {
+    if (index == 0) {
+      return StringConstants.list;
+    } else if (index == 1) {
+      return StringConstants.category;
+    } else {
+      return StringConstants.topList;
+    }
+  }
+
+
+  BottomNavigationBarItem buildNavigationBarItem({
+    required IconData icon,
+    required int index,
+  }) {
+    return BottomNavigationBarItem(
+        icon: Padding(
+          padding: context.paddingAllLow,
+          child: Icon(icon),
+        ),
+        label: _labelText(index));
+  }
+
  
-  void changeTab(int index) {
+  Future<void> changeTab(int index, BuildContext context) async {
     switch (index) {
       case 0:
-        context.go('/home_page');
+        GoRouter.of(context).go('/home_page');
         break;
       case 1:
-        context.go('/category_page');
+        GoRouter.of(context).go('/category_page');
         break;
       default:
-        context.go('/top_list_page');
+        GoRouter.of(context).go('/top_list_page');
         break;
     }
     setState(() {
       currentIndex = index;
-    });
+    }); 
   }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      fixedColor: CustomColorScheme.appBarBackground,
-      items: [
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.list),
-          label: StringConstants.list,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.category),
-          label: StringConstants.category2,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.star),
-          label: StringConstants.topList,
-        ),
-      ],
-      currentIndex: currentIndex,
-      onTap: changeTab,
-    );
+        type: BottomNavigationBarType.fixed,
+        fixedColor: CustomColorScheme.appBarBackground,
+        items: bottomNavigationBarItemList(),
+        currentIndex: currentIndex,
+        onTap: (index) {
+          changeTab(index, context);
+        });
   }
+
 }
