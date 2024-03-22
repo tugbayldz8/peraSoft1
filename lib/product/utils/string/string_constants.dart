@@ -16,4 +16,10 @@ final class StringConstants {
   static String toplist = 'Top List';
   static String hataolustu = 'Hata Oluştu:';
   static String hemenBasla = 'HEMEN BAŞLA';
+  static String landingText = 'Eccomerce \nConcept';
+  static String selectCategory = 'Select Category';
+  static String hotSales = 'Hot Sales';
+  static String viewAll = 'view all';
+  static String seeMore = 'see more';
+  static String search =  'Search';
 }

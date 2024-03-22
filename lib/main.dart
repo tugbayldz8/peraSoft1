@@ -4,6 +4,7 @@ import 'package:pera_soft1/product/theme/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
 import 'feature/home/viewModel/view_model.dart';
 import 'product/router/app_router.dart';
+import 'product/router/go_router.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         builder: (context, themeNotifier, _) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            theme: context.watch<ThemeNotifier>().currentTheme,
+            theme: context.watch<ThemeNotifier>().currentTheme, 
+            
             routeInformationParser: _appRoute.router.routeInformationParser,
             routeInformationProvider: _appRoute.router.routeInformationProvider,
             routerDelegate: _appRoute.router.routerDelegate,

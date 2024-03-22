@@ -16,7 +16,6 @@ class HomePageViewModel extends ChangeNotifier {
 
     for (Product product in products) {
       String category = product.category;
-
       if (mostExpensiveProductsMap.containsKey(category)) {
         Product existingProduct = mostExpensiveProductsMap[category]!;
         if (product.price > existingProduct.price) {
@@ -28,5 +27,14 @@ class HomePageViewModel extends ChangeNotifier {
     }
 
     return mostExpensiveProductsMap.values.toList();
+  }
+
+  List<Product> fetchCategories(List<Product> products) {
+     Map<String,Product> categoryNames = {};
+      for (var product in products) {
+        String categoryName = product.category;
+        categoryNames[categoryName] = product;
+      }
+    return categoryNames.values.toList();
   }
 }

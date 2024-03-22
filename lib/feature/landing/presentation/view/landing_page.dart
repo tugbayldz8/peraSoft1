@@ -1,26 +1,56 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pera_soft1/product/extensions/context_extensions.dart';
-import '../widget/image_asset_widget.dart';
-import '../widget/outlined_button_widget.dart';
+import 'package:pera_soft1/product/theme/custom_color_scheme.dart';
 
-class LandingPage extends StatelessWidget {
+import '../../../../product/utils/string/string_constants.dart';
+
+class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
+
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 2), () {
+      context.go('/home_page');
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-          fit: StackFit.expand,
+      backgroundColor: CustomColorScheme.customBottomNavColor,
+      body: Center(
+        child: Stack(
           children: [
-          const ImageAssetWidget(),
-            Positioned(
-              top: context.width * 1.5,
-              left: context.veryhighValue2x * 0.7,
-              child:const OutlinedButtonWidget(),
+            Center(
+              child: CircleAvatar(
+                radius: context.dynamicHeight(0.1),
+                backgroundColor: CustomColorScheme.customButtonColor,
+              ),
             ),
+            Padding(
+              padding: EdgeInsets.only(left: context.dynamicWidth(0.25)),
+              child: Center(
+                child: Text(StringConstants.landingText,
+                    style: context.textTheme.headlineMedium?.copyWith(
+                      color: CustomColorScheme.textColorwhite,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ),
+            ),
+          
+        
           ],
         ),
-      
+      ),
     );
   }
 }

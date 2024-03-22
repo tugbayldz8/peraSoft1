@@ -4,8 +4,6 @@ import '../../../models/product/product_model.dart';
 import 'package:http/http.dart' as http;
 
 final class ProductService{
-
-   //ProductService._();
    
    Future<List<Product>> fetchProducts() async {
     final response =
