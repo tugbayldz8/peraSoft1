@@ -5,8 +5,7 @@ import 'package:pera_soft1/product/utils/string/string_constants.dart';
 import '../widget/bottom_nav_builder_widget.dart';
 
 mixin BottomNavigationBarMixin on State<BottomNavBuilder> {
-
- int currentIndex = 0;
+  int currentIndex = 0;
 
   List<BottomNavigationBarItem> bottomNavigationBarItemList() {
     return [
@@ -18,35 +17,31 @@ mixin BottomNavigationBarMixin on State<BottomNavBuilder> {
 
   String _labelText(int index) {
     if (index == 0) {
-      return StringConstants.list;
+      return StringConstants.home;
     } else if (index == 1) {
-      return StringConstants.category;
+      return StringConstants.list;
     } else {
       return StringConstants.topList;
     }
   }
-
 
   BottomNavigationBarItem buildNavigationBarItem({
     required IconData icon,
     required int index,
   }) {
     return BottomNavigationBarItem(
-        icon: Padding(
-          padding: context.paddingAllLow,
-          child: Icon(icon),
-        ),
-        label: _labelText(index));
+      icon: Icon(icon),
+      label: _labelText(index),
+    );
   }
 
- 
   Future<void> changeTab(int index, BuildContext context) async {
     switch (index) {
       case 0:
         GoRouter.of(context).go('/home_page');
         break;
       case 1:
-        GoRouter.of(context).go('/category_page');
+        GoRouter.of(context).go('/list_page');
         break;
       default:
         GoRouter.of(context).go('/top_list_page');
@@ -54,6 +49,6 @@ mixin BottomNavigationBarMixin on State<BottomNavBuilder> {
     }
     setState(() {
       currentIndex = index;
-    }); 
+    });
   }
 }

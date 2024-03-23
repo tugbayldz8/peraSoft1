@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../../product/provider/custom_provider.dart';
 import '../../../../product/utils/string/string_constants.dart';
 import '../../../../product/widget/custom_list_view_builder_widget.dart';
 import '../../../home/data/models/product/product_model.dart';
-import '../../../home/viewModel/view_model.dart';
 
 final class FutureBuilderWidget extends StatelessWidget {
    FutureBuilderWidget({
