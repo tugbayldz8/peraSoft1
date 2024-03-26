@@ -37,4 +37,5 @@ class HomePageViewModel extends ChangeNotifier {
       }
     return categoryNames.values.toList();
   }
+
 }
