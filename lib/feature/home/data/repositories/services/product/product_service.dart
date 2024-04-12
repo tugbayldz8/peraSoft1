@@ -1,20 +1,18 @@
-import 'dart:convert';
-import 'package:pera_soft1/product/utils/string/string_constants.dart';
+import 'package:pera_soft1/product/base/model/base_response_model.dart';
+import '../../../../../../product/utils/service/service_manager.dart';
 import '../../../models/product/product_model.dart';
-import 'package:http/http.dart' as http;
 
-final class ProductService{
-   
-   Future<List<Product>> fetchProducts() async {
-    final response =
-        await http.get(Uri.parse('https://fakestoreapi.com/products'));
-    if (response.statusCode == 200) {
-      List<dynamic> data = json.decode(response.body);
-      List<Product> deneme =
-          data.map((item) => Product.fromJson(item)).toList();
-      return deneme;
-    } else {
-      throw Exception(StringConstants.hataolustu);
+final class ProductService {
+  final _serviceManager = ServiceManager();
+  Future<BaseResponseModel> fetchProducts() async {
+    final response = await _serviceManager.get<dynamic>('products');
+    if (response.data == null) {
+      return response;
     }
+    final data = response.data
+        .map((item) => Product.fromJson(item))
+        .cast<Product>()
+        .toList();
+    return BaseResponseModel<List<Product>>(data: data);
   }
 }

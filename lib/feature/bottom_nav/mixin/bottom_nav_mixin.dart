@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pera_soft1/product/extensions/context_extensions.dart';
-import 'package:pera_soft1/product/utils/string/string_constants.dart';
+import 'package:pera_soft1/product/constants/string/string_constants.dart';
+import 'package:pera_soft1/product/router/router_paths.dart';
 import '../widget/bottom_nav_builder_widget.dart';
 
 mixin BottomNavigationBarMixin on State<BottomNavBuilder> {
@@ -38,13 +38,13 @@ mixin BottomNavigationBarMixin on State<BottomNavBuilder> {
   Future<void> changeTab(int index, BuildContext context) async {
     switch (index) {
       case 0:
-        GoRouter.of(context).go('/home_page');
+        GoRouter.of(context).go(RouterPaths.home.path);
         break;
       case 1:
-        GoRouter.of(context).go('/list_page');
+        GoRouter.of(context).go(RouterPaths.list.path);
         break;
       default:
-        GoRouter.of(context).go('/top_list_page');
+        GoRouter.of(context).go(RouterPaths.topList.path);
         break;
     }
     setState(() {

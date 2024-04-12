@@ -9,10 +9,6 @@ final class ThemeNotifier extends ChangeNotifier {
   }
 
   ThemeData get currentTheme {
-    return isLightTheme
-        ? ThemeData.light()
-        // .copyWith(iconTheme: IconThemeData(color: Colors.green))
-        : ThemeData.dark();
-    // .copyWith(iconTheme: IconThemeData(color: Colors.red),);
+    return isLightTheme ? ThemeData.light() : ThemeData.dark();
   }
 }

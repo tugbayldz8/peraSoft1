@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pera_soft1/feature/bottom_nav/view/custom_bottom_nav_page.dart';
-import 'package:pera_soft1/feature/home/presentation/view/home_page.dart';
-
 import 'package:pera_soft1/feature/list/presentation/view/list_page.dart';
 import 'package:pera_soft1/feature/landing/presentation/view/landing_page.dart';
 import 'package:pera_soft1/feature/topList/presentation/view/topl_list_page.dart';
+import 'package:pera_soft1/product/router/router_paths.dart';
+
+import '../../feature/home/view/home_page.dart';
 
 final class AppRouter {
   static final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -24,10 +25,10 @@ final class AppRouter {
 
   GoRouter router = GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: "/",
+    initialLocation: RouterPaths.initial.path,
     routes: [
       GoRoute(
-        path: '/',
+        path: RouterPaths.initial.path,
         builder: (BuildContext context, GoRouterState state) =>
             const LandingPage(),
       ),
@@ -40,7 +41,7 @@ final class AppRouter {
             navigatorKey: shellNavigatorDKey,
             routes: [
               GoRoute(
-                path: '/home_page',
+                path: RouterPaths.home.path,
                 pageBuilder: (context, state) {
                   return CustomTransitionPage(
                     transitionsBuilder:
@@ -50,7 +51,7 @@ final class AppRouter {
                         type: PageTransitionType.fade,
                       ).child;
                     },
-                    child: HomePage(),
+                    child: const HomePage(),
                   );
                 },
               ),
@@ -60,7 +61,7 @@ final class AppRouter {
             navigatorKey: shellNavigatorBKey,
             routes: [
               GoRoute(
-                path: '/list_page',
+                path: RouterPaths.list.path,
                 pageBuilder: (context, state) {
                   return CustomTransitionPage(
                     transitionsBuilder:
@@ -70,7 +71,7 @@ final class AppRouter {
                         type: PageTransitionType.fade,
                       ).child;
                     },
-                    child:  ListPage(),
+                    child: ListPage(),
                   );
                 },
               ),
@@ -80,7 +81,7 @@ final class AppRouter {
             navigatorKey: shellNavigatorCKey,
             routes: [
               GoRoute(
-                path: '/top_list_page',
+                path: RouterPaths.topList.path,
                 pageBuilder: (context, state) {
                   return CustomTransitionPage(
                     transitionsBuilder:

@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pera_soft1/product/extensions/context_extensions.dart';
 import 'package:pera_soft1/product/theme/custom_color_scheme.dart';
-
-import '../../../../product/utils/string/string_constants.dart';
+import '../../../../product/constants/string/string_constants.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -17,9 +15,8 @@ class _LandingPageState extends State<LandingPage> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       context.go('/home_page');
-
     });
   }
 
@@ -46,8 +43,6 @@ class _LandingPageState extends State<LandingPage> {
                     )),
               ),
             ),
-          
-        
           ],
         ),
       ),
