@@ -1,7 +1,7 @@
 part of '../home_page.dart';
 
-class _FetchCategory extends StatelessWidget {
-  const _FetchCategory();
+class _FetchCategoryView extends StatelessWidget {
+  const _FetchCategoryView();
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,9 @@ class _FetchCategory extends StatelessWidget {
           return Center(child: Text(StringConstants.hataolustu));
         }
         if (snapshot.isNotEmpty) {
-          List<Product> categoryNames =
+          final categoryNames =
               FetchCategories.fetchCategories(snapshot);
-          return _ListViewBuilderView(categoryNames: categoryNames);
+          return _CategoryListViewBuilderView(categoryNames: categoryNames);
         } else {
           return const Center(child: CircularProgressIndicator());
         }
@@ -23,8 +23,8 @@ class _FetchCategory extends StatelessWidget {
   }
 }
 
-final class _ListViewBuilderView extends StatelessWidget {
-  const _ListViewBuilderView({
+final class _CategoryListViewBuilderView extends StatelessWidget {
+  const _CategoryListViewBuilderView({
     required this.categoryNames,
   });
 
@@ -34,7 +34,7 @@ final class _ListViewBuilderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQueryExtension(context).veryhighValue2x / 1.30,
-      child: Consumer<SelectCategoryViewModel>(
+      child: Consumer<HomeViewModel>(
         builder: (context, provider, child) {
           return ListView.builder(
             scrollDirection: Axis.horizontal,

@@ -12,17 +12,19 @@ final class FavoriteViewModel extends ChangeNotifier {
     if (favorites != null) {
       _favoriteStates = favorites;
     }
+    /**********************************neden diğerlerinde haslistrn yok */
     if (!hasListeners) return;
     notifyListeners();
   }
 
+//************************************tekrarrr
   void selectedFavorite(Product item) {
     if (_favoriteStates.contains(item)) return;
     final favorites = List<Product>.from(_favoriteStates);
     favorites.add(item);
     CacheManager.clearList();
     CacheManager.setProducts(favorites);
-    _favoriteStates = favorites;
+    _favoriteStates = favorites; 
     notifyListeners();
   }
 
@@ -31,7 +33,7 @@ final class FavoriteViewModel extends ChangeNotifier {
     favorites.clear();
     CacheManager.setProducts(favorites);
     _favoriteStates = favorites;
-    notifyListeners();
+    notifyListeners();  
   }
 
   void removeFavoriteSelect(Product product) {

@@ -1,7 +1,6 @@
 export 'package:flutter/material.dart';
-export 'package:pera_soft1/feature/home/viewModel/dropdown_view_model.dart';
+export 'package:pera_soft1/feature/home/viewModel/location_dropdown_view_model.dart';
 export 'package:pera_soft1/feature/home/viewModel/favorite_view_model.dart';
-export 'package:pera_soft1/feature/home/viewModel/select_category_view_model.dart';
 export 'package:provider/provider.dart';
 export 'package:carousel_slider/carousel_slider.dart';
 export 'package:pera_soft1/product/constants/string/string_constants.dart';

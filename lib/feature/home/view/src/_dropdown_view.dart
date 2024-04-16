@@ -1,14 +1,14 @@
 part of '../home_page.dart';
 
-class LocDropdownView extends StatefulWidget {
-  const LocDropdownView({super.key});
+class LocationDropdownView extends StatefulWidget {
+  const LocationDropdownView({super.key});
 
   @override
-  State<LocDropdownView> createState() => LocDropdownViewState();
+  State<LocationDropdownView> createState() => LocationDropdownViewState();
 }
 
-class LocDropdownViewState extends State<LocDropdownView>
-    with LocDropdownMixin {
+class LocationDropdownViewState extends State<LocationDropdownView>
+    with LocationDropdownMixin {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,7 +20,7 @@ class LocDropdownViewState extends State<LocDropdownView>
             Icons.location_on_outlined,
             color: CustomColorScheme.customButtonColor,
           ),
-          Consumer<DropdownProvider>(
+          Consumer<LocationDropdownViewModel>(
             builder: (context, provider, child) {
               return DropdownButton<String>(
                 value: provider.selectedItem,
@@ -52,7 +52,7 @@ class LocDropdownViewState extends State<LocDropdownView>
                     ),
                   ),
                   builder: (context) {
-                    return const _BottomSheetView();
+                    return const _BottomSheetView(); 
                   });
               if (result is bool) {
                 setState(() {});

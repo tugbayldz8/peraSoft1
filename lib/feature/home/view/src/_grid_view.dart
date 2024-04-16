@@ -6,9 +6,9 @@ final class ProductGridView extends StatefulWidget {
   @override
   State<ProductGridView> createState() => ProductGridViewState();
 }
-
+//Böyle büyk saufaları Widgetlere ayrımak mantıklı değil mi***************************************
 class ProductGridViewState extends State<ProductGridView>
-    with ProductGridViewMixin {
+   {
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeViewModel>(
@@ -17,14 +17,14 @@ class ProductGridViewState extends State<ProductGridView>
           return Center(child: Text(StringConstants.hataolustu));
         }
         if (snapshot.products.isNotEmpty) {
-          List<Product> products = snapshot.products;
-          List<Product> filteredProducts =
-              selectCategoryProvider.selectedCategory == null
+          final products = snapshot.products;
+          final filteredProducts =
+              snapshot.selectedCategory== null
                   ? products
                   : snapshot.products
                       .where((product) =>
                           product.category ==
-                          selectCategoryProvider.selectedCategory)
+                         snapshot.selectedCategory)
                       .toList();
           return SizedBox(
             height: MediaQueryExtension(context).height,
@@ -38,7 +38,7 @@ class ProductGridViewState extends State<ProductGridView>
               ),
               itemBuilder: (context, index) {
                 Product product = filteredProducts[index];
-
+    
                 return Card(
                   elevation: 0.1,
                   child: Stack(children: [
