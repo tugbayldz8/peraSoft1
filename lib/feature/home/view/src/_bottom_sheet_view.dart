@@ -9,106 +9,118 @@ final class _BottomSheetView extends StatefulWidget {
 
 class _BottomSheetViewState extends State<_BottomSheetView> {
   String? _selectedCategory;
-  String? _selectedPriceRange;
-
-  List<String> categories = ['Category 1', 'Category 2', 'Category 3'];
+  String? _selectedPrice;
   List<String> priceRanges = [
-    'Price Range 1',
-    'Price Range 2',
-    'Price Range 3'
+    '0-100',
+    '100-200',
+    '200-1000',
   ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: 30,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  const Text('Filter options'),
-                  Positioned(
-                    left: 10,
-                    top: -10,
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop<bool>(true);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.close),
-                        )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          CustomColorScheme.customBottomNavColor),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop<bool>(true);
+                    },
+                    icon: const Icon(Icons.close,
+                        color: CustomColorScheme.textColorwhite)),
+                const Spacer(),
+                const Text('Filter options',
+                    style: TextStyle(
+                        color: CustomColorScheme.customBottomNavColor,
+                        fontWeight: FontWeight.bold)),
+                const Spacer(),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: CustomColorScheme.customButtonColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
                   ),
-                  Positioned(
-                    right: 10,
-                    top: -10,
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop<bool>(true);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {});
-                              Navigator.of(context).pop<bool>(true);
-                            },
-                            child: const Text('Done'),
-                          ),
-                        )),
+                  onPressed: () {
+                    setState(() {});
+                    Navigator.of(context).pop<bool>(true);
+                  },
+                  child: const Text(
+                    'Done',
+                    style: TextStyle(color: CustomColorScheme.textColorwhite),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Container(
-              color: Colors.green,
-              child: DropdownButton<String>(
-                value: _selectedCategory,
+            const SizedBox(height: 20),
+            Consumer<HomeViewModel>(builder: (context, viewModel, _) {
+              if (viewModel.categories.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return ListTile(
+                title: const Text('Category Name',
+                    style: TextStyle(
+                        color: CustomColorScheme.customBottomNavColor,
+                        fontWeight: FontWeight.bold)),
+                subtitle: DropdownButton<String>(
+                  isExpanded: true,
+                  icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                  value: _selectedCategory,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedCategory = newValue;
+                    });
+                  },
+                  items: viewModel.categories
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              );
+            }),
+            const SizedBox(height: 20),
+            ListTile(
+              title: const Text('Price',
+                  style: TextStyle(
+                      color: CustomColorScheme.customBottomNavColor,
+                      fontWeight: FontWeight.bold)),
+              subtitle: DropdownButton<String>(
+                isExpanded: true,
+                icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                value: _selectedPrice,
                 onChanged: (String? newValue) {
+                  if (newValue == null) {
+                    return;
+                  }
                   setState(() {
-                    _selectedCategory = newValue;
+                    _selectedPrice = newValue;
                   });
                 },
-                items: categories.map<DropdownMenuItem<String>>((String value) {
+                items:
+                    priceRanges.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
               ),
-            ),
-            const SizedBox(height: 20),
-            const Text('Select Price Range:'),
-            DropdownButton<String>(
-              value: _selectedPriceRange,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedPriceRange = newValue;
-                });
-              },
-              items: priceRanges.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Fetch Data'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {});
-                Navigator.of(context).pop<bool>(true);
-              },
-              child: const Text('OK'),
             ),
           ],
         ),

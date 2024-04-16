@@ -4,15 +4,19 @@ import '../../../models/product/product_model.dart';
 
 final class ProductService {
   final _serviceManager = ServiceManager();
-  Future<BaseResponseModel> fetchProducts() async {
+  Future<BaseResponseModel<T>> fetchProducts<T>() async {
     final response = await _serviceManager.get<dynamic>('products');
-    if (response.data == null) {
-      return response;
+  if(response.error != null) {
+      return response as BaseResponseModel<T>;
     }
-    final data = response.data
-        .map((item) => Product.fromJson(item))
-        .cast<Product>()
-        .toList();
-    return BaseResponseModel<List<Product>>(data: data);
+   else if (response.data is List) {
+      final data = response.data
+          .map((item) => Product.fromJson(item))
+          .cast<Product>()
+          .toList();
+      return BaseResponseModel<T>(data: data);
+    }else {
+      return BaseResponseModel(error: 'Data is not a list');
+    }
   }
 }
