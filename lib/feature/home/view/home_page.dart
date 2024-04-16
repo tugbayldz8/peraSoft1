@@ -31,9 +31,7 @@ class _HomePageState extends State<HomePage> with HomeBodyMixin {
         ChangeNotifierProvider<LocationDropdownViewModel>(
           create: (context) => LocationDropdownViewModel(),
         ),
-        ChangeNotifierProvider<HomeViewModel>(
-          create: (context) => HomeViewModel(),
-        ),
+     
       ],
       child: SingleChildScrollView(
         child: Padding(

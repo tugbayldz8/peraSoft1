@@ -17,7 +17,6 @@ class _BottomSheetViewState extends State<_BottomSheetView> {
     'Price Range 2',
     'Price Range 3'
   ];
-//BU NEEEEEEEĞĞĞĞĞğğ***************************************
   @override
   Widget build(BuildContext context) {
     return SafeArea(

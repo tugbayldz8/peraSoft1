@@ -9,7 +9,7 @@ class HomeViewModel with ChangeNotifier {
 
   List<Product> _products = [];
   final _productService = ProductService();
-  List<Product>? _cachedProduct;  //Nerede kullanılıypr******************************************
+  List<Product>? _cachedProduct;  
 
   List<Product> get products => _products;
   List<Product>? get cachedProduct => _cachedProduct;
@@ -25,7 +25,7 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners(); 
   }
 
-   void selectCategory(String category) {
+   void selectCategory(String? category) {
     _selectedCategory = category;
     notifyListeners();
   }
