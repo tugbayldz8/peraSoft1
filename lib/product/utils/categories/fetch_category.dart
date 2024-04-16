@@ -2,12 +2,16 @@ import '../../../feature/home/data/models/product/product_model.dart';
 
 class FetchCategories {
   FetchCategories._();
-  static List<Product> fetchCategories(List<Product> products) {
-    Map<String, Product> categoryNames = {};
+  static List<String> fetchCategories(List<Product> products) {
+    List<String> categoryNames = [];
     for (var product in products) {
-      String categoryName = product.category ?? '';
-      categoryNames[categoryName] = product;
+      if (product.category == null) {
+        continue;
+      } else if(categoryNames.contains(product.category!)){
+        continue;
+      }
+      categoryNames.add(product.category!);
     }
-    return categoryNames.values.toList();
+    return categoryNames;
   }
 }
