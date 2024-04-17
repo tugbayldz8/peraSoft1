@@ -7,27 +7,21 @@ class _MostExpensiveProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeViewModel>(
-      builder: (context, snapshot, child) {
-        if (snapshot.products.isEmpty) {
-          return Center(child: Text(StringConstants.hataolustu));
-        }
-        if (snapshot.products.isNotEmpty) {
-          final allProduct = snapshot.products;
-          final mostExpensiveCategory =
-             snapshot.selectedCategory == null
-                  ? allProduct
-                  : allProduct
-                      .where((product) =>
-                          product.category ==
-                          snapshot
-                              .selectedCategory)
-                      .toList();
-          mostExpensiveCategory.sort((a, b) {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.products != null) {
+          final allProduct = state.products;
+          final mostExpensiveCategory = state.selectedCategory == null
+              ? allProduct
+              : allProduct!
+                  .where(
+                      (product) => product.category == state.selectedCategory)
+                  .toList();
+          mostExpensiveCategory!.sort((a, b) {
             if (a.price == null || b.price == null) return 0;
             return b.price!.compareTo(a.price!);
           });
-    
+
           return CarouselSlider.builder(
             itemCount: mostExpensiveCategory.length,
             itemBuilder: (context, index, child) {

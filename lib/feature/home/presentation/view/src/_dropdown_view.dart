@@ -1,14 +1,14 @@
 part of '../home_page.dart';
 
-class LocationDropdownView extends StatefulWidget {
-  const LocationDropdownView({super.key});
+class LocationDropdownView extends StatelessWidget {
+  LocationDropdownView({super.key});
 
-  @override
-  State<LocationDropdownView> createState() => LocationDropdownViewState();
-}
-
-class LocationDropdownViewState extends State<LocationDropdownView>
-    with LocationDropdownMixin {
+  final List<String> _items = [
+    'Zihuatanejo, Gro',
+    'Item 2',
+    'Item 3',
+    'Item 4'
+  ];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,15 +20,15 @@ class LocationDropdownViewState extends State<LocationDropdownView>
             Icons.location_on_outlined,
             color: CustomColorScheme.customButtonColor,
           ),
-          Consumer<LocationDropdownViewModel>(
-            builder: (context, provider, child) {
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
               return DropdownButton<String>(
-                value: provider.selectedItem,
+                value: state.selectedAddress,
                 onChanged: (String? newValue) {
-                  setSelectedItem(newValue, provider);
+                  if (newValue == null) return;
+                  context.read<HomeBloc>().add(LocationChangeEvent(newValue));
                 },
-                items: provider.items
-                    .map<DropdownMenuItem<String>>((String value) {
+                items: _items.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -41,10 +41,10 @@ class LocationDropdownViewState extends State<LocationDropdownView>
           IconButton(
             icon: const Icon(Icons.filter_alt_outlined),
             onPressed: () async {
-              final result = await showModalBottomSheet(
+              await showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  backgroundColor: backgorundColor,
+                  backgroundColor: Colors.white,
                   barrierColor: Colors.transparent,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(
@@ -52,11 +52,8 @@ class LocationDropdownViewState extends State<LocationDropdownView>
                     ),
                   ),
                   builder: (context) {
-                    return const _BottomSheetView(); 
+                    return const _BottomSheetView();
                   });
-              if (result is bool) {
-                setState(() {});
-              }
             },
           ),
         ],

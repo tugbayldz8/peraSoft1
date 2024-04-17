@@ -1,13 +1,16 @@
-import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:pera_soft1/product/base/model/base_model.dart';
+part 'product_model.g.dart';
 
-class Product extends Equatable {
+@JsonSerializable()
+final class Product extends BaseModel<Product> {
   final int? id;
   final String? title;
   final String? description;
   final double? price;
   final String? category;
   final String? image;
-  const Product({
+  Product({
     this.id,
     this.title,
     this.description,
@@ -15,29 +18,22 @@ class Product extends Equatable {
     this.category,
     this.image,
   });
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      id: json['id'] ?? 0,
-      title: json['title'] ?? '',
-      description: json['description'] ?? '',
-      price: (json['price'] ?? 0.0).toDouble(),
-      category: json['category'] ?? '',
-      image: json['image'] ?? '',
-    );
-  }
-  factory Product.fromJsonDynamic(dynamic json) => Product.fromJson(json);
+  factory Product.empty() => Product(
+        id: 0,
+        title: '',
+        description: '',
+        price: 0.0,
+        category: '',
+        image: '',
+      );
+  @override
+  Product fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'price': price,
-      'category': category,
-      'image': image,
-    };
-  }
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
 
+  @override
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
 
   @override
   List<Object?> get props => [id, title, description, price, category, image];

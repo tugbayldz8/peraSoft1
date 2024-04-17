@@ -6,31 +6,25 @@ final class ProductGridView extends StatefulWidget {
   @override
   State<ProductGridView> createState() => ProductGridViewState();
 }
-//Böyle büyk saufaları Widgetlere ayrımak mantıklı değil mi***************************************
-class ProductGridViewState extends State<ProductGridView>
-   {
+
+class ProductGridViewState extends State<ProductGridView> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeViewModel>(
-      builder: (context, snapshot, child) {
-        if (snapshot.products.isEmpty) {
-          return Center(child: Text(StringConstants.hataolustu));
-        }
-        if (snapshot.products.isNotEmpty) {
-          final products = snapshot.products;
-          final filteredProducts =
-              snapshot.selectedCategory== null
-                  ? products
-                  : snapshot.products
-                      .where((product) =>
-                          product.category ==
-                         snapshot.selectedCategory)
-                      .toList();
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.products != null) {
+          final products = state.products;
+          final filteredProducts = state.selectedCategory == null
+              ? products
+              : state.products!
+                  .where(
+                      (product) => product.category == state.selectedCategory)
+                  .toList();
           return SizedBox(
             height: MediaQueryExtension(context).height,
             child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: filteredProducts.length,
+              itemCount: filteredProducts!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 4,
@@ -38,7 +32,7 @@ class ProductGridViewState extends State<ProductGridView>
               ),
               itemBuilder: (context, index) {
                 Product product = filteredProducts[index];
-    
+
                 return Card(
                   elevation: 0.1,
                   child: Stack(children: [
@@ -111,10 +105,11 @@ class ProductGridViewState extends State<ProductGridView>
                     ),
                     Positioned(
                         right: 25,
-                        child: Consumer<FavoriteViewModel>(
-                            builder: (context, provider, child) {
+                        child: BlocBuilder<HomeBloc, HomeState>(
+                            builder: (context, state) {
+                          if (state.favoritesList == null) return Container();
                           bool isFavorite =
-                              provider.favoriteStates.contains(product);
+                              state.favoritesList!.contains(product);
                           return IconButton(
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
@@ -123,9 +118,13 @@ class ProductGridViewState extends State<ProductGridView>
                             ),
                             onPressed: () {
                               if (isFavorite) {
-                                return provider.removeFavoriteSelect(product);
+                                return context
+                                    .read<HomeBloc>()
+                                    .add(RemoveFavoriteSelectEvent(product));
                               }
-                              provider.selectedFavorite(product);
+                              context
+                                  .read<HomeBloc>()
+                                  .add(AddFavoriteEvent(product));
                             },
                             icon: Icon(
                               isFavorite

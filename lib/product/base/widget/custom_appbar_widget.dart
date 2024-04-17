@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pera_soft1/product/theme/bloc/theme_bloc.dart';
 import '../../theme/custom_color_scheme.dart';
-import '../../theme/notifier/theme_notifier.dart';
 
 final class CustomAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {
@@ -20,13 +20,23 @@ final class CustomAppBarWidget extends StatelessWidget
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(appBarTitle),
-          IconButton(
-            onPressed: () {
-              context.read<ThemeNotifier>().changeTheme();
+          BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              return IconButton(
+                onPressed: () {
+                  if (state.themeData == ThemeData.light()) {
+                    context
+                        .read<ThemeBloc>()
+                        .add(const ChangeThemeEvent(false));
+                  } else {
+                    context.read<ThemeBloc>().add(const ChangeThemeEvent(true));
+                  }
+                },
+                icon: state.themeData == ThemeData.dark()
+                    ? const Icon(Icons.light_mode)
+                    : const Icon(Icons.dark_mode),
+              );
             },
-            icon: context.watch<ThemeNotifier>().isLightTheme
-                ? const Icon(Icons.light_mode)
-                : const Icon(Icons.dark_mode),
           ),
         ],
       ),

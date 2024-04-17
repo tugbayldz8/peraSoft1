@@ -65,8 +65,8 @@ class _BottomSheetViewState extends State<_BottomSheetView> {
               ],
             ),
             const SizedBox(height: 20),
-            Consumer<HomeViewModel>(builder: (context, viewModel, _) {
-              if (viewModel.categories.isEmpty) {
+            BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+              if (state.categories == null) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -85,7 +85,7 @@ class _BottomSheetViewState extends State<_BottomSheetView> {
                       _selectedCategory = newValue;
                     });
                   },
-                  items: viewModel.categories
+                  items: state.categories!
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,

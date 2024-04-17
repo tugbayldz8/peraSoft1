@@ -7,7 +7,7 @@ import 'package:pera_soft1/feature/landing/presentation/view/landing_page.dart';
 import 'package:pera_soft1/feature/topList/presentation/view/topl_list_page.dart';
 import 'package:pera_soft1/product/router/router_paths.dart';
 
-import '../../feature/home/view/home_page.dart';
+import '../../feature/home/presentation/view/home_page.dart';
 
 final class AppRouter {
   static final GlobalKey<NavigatorState> rootNavigatorKey =

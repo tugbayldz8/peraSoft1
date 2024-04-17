@@ -5,17 +5,14 @@ class _FetchCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeViewModel>(
-      builder: (context, snapshot, child) {
-        if (snapshot.products.isEmpty) {
-          return Center(child: Text(StringConstants.hataolustu));
-        }
-        if (snapshot.products.isNotEmpty) {
-          final categoryNames =
-              FetchCategories.fetchCategories(snapshot.products);
-          return _CategoryListViewBuilderView(categoryNames: categoryNames,selectedCategory:snapshot.selectedCategory??'');
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.products != null) {
+          return _CategoryListViewBuilderView(
+              categoryNames: state.categories!,
+              selectedCategory: state.selectedCategory ?? '');
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator.adaptive());
         }
       },
     );
@@ -40,15 +37,14 @@ final class _CategoryListViewBuilderView extends StatelessWidget {
         itemCount: categoryNames.length,
         itemBuilder: (context, index) {
           String category = categoryNames[index];
-          bool isSelectedIcon =
-              category == selectedCategory;
+          bool isSelectedIcon = category == selectedCategory;
           return InkWell(
             onTap: () {
-              if(isSelectedIcon){
-                context.read<HomeViewModel>().selectCategory(null);
+              if (isSelectedIcon) {
+                context.read<HomeBloc>().add(const SelectCategoryEvent(null));
                 return;
               }
-           context.read<HomeViewModel>().selectCategory(category);
+              context.read<HomeBloc>().add(SelectCategoryEvent(category));
             },
             child: Padding(
               padding: context.paddingAllDefault / 1.3,
@@ -75,7 +71,7 @@ final class _CategoryListViewBuilderView extends StatelessWidget {
                   ),
                   SizedBox(height: context.lowValue),
                   Text(
-                 category,
+                    category,
                     style: TextStyle(
                       color: isSelectedIcon
                           ? CustomColorScheme.customButtonColor

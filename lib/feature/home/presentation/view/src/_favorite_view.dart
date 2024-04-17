@@ -10,13 +10,10 @@ final class FavoriteView extends StatefulWidget {
 class _FavoriteViewState extends State<FavoriteView> with FavoriteMixin {
   @override
   Widget build(BuildContext context) {
-    return Consumer<FavoriteViewModel>(
-      builder: (context, snapshot, child) {
-        if (snapshot.favoriteStates.isEmpty) {
-          return Center(child: Text(StringConstants.hataolustu));
-        }
-        if (snapshot.favoriteStates.isNotEmpty) {
-          List<Product> products = snapshot.favoriteStates;
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.favoritesList != null) {
+          List<Product> products = state.favoritesList!;
           return SizedBox(
             height: MediaQueryExtension(context).height / 4,
             child: ListView.builder(
@@ -113,8 +110,8 @@ class FavoriteCard extends StatelessWidget {
                 ),
               ),
               onPressed: () => context
-                  .read<FavoriteViewModel>()
-                  .removeFavoriteSelect(product),
+                  .read<HomeBloc>()
+                  .add(RemoveFavoriteSelectEvent(product)),
               icon: const Icon(
                 Icons.favorite_sharp,
                 color: CustomColorScheme.customButtonColor,
