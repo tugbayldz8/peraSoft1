@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:pera_soft1/product/extensions/context_extensions.dart';
+import '../../../../product/enums/price_range.dart';
 import 'index.dart';
 
 part 'src/_fetch_category_view.dart';

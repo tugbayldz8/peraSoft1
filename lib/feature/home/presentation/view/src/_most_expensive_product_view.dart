@@ -17,15 +17,16 @@ class _MostExpensiveProductView extends StatelessWidget {
                   .where(
                       (product) => product.category == state.selectedCategory)
                   .toList();
-          mostExpensiveCategory!.sort((a, b) {
+          mostExpensiveCategory?.sort((a, b) {
             if (a.price == null || b.price == null) return 0;
             return b.price!.compareTo(a.price!);
           });
 
           return CarouselSlider.builder(
-            itemCount: mostExpensiveCategory.length,
+            itemCount: mostExpensiveCategory?.length ?? 0,
             itemBuilder: (context, index, child) {
-              Product product = mostExpensiveCategory[index];
+              final product = mostExpensiveCategory?[index];
+              if (product == null) return Container();
               return Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(

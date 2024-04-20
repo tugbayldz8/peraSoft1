@@ -8,6 +8,7 @@ class CacheManager {
   static Future<void> init() async {
     final dir = await getApplicationDocumentsDirectory();
     Hive.defaultDirectory = dir.path;
+    Hive();
     Hive.registerAdapter(
         'products', ((json) => Product.fromJson(json as Map<String, dynamic>)));
   }
@@ -22,7 +23,6 @@ class CacheManager {
   static List<Product>? getProducts() {
     final box = Hive.box<Product>(name: 'Product');
     List<Product> products = [];
-
     for (var i = 0; i < box.length; i++) {
       final product = box.getAt(i);
       products.add(product);

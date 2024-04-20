@@ -8,13 +8,6 @@ final class _BottomSheetView extends StatefulWidget {
 }
 
 class _BottomSheetViewState extends State<_BottomSheetView> {
-  String? _selectedCategory;
-  String? _selectedPrice;
-  List<String> priceRanges = [
-    '0-100',
-    '100-200',
-    '200-1000',
-  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,6 +30,7 @@ class _BottomSheetViewState extends State<_BottomSheetView> {
                       ),
                     ),
                     onPressed: () {
+                      context.read<HomeBloc>().add(ClearFilteredListEvent());
                       Navigator.of(context).pop<bool>(true);
                     },
                     icon: const Icon(Icons.close,
@@ -54,7 +48,7 @@ class _BottomSheetViewState extends State<_BottomSheetView> {
                         borderRadius: BorderRadius.circular(10.0)),
                   ),
                   onPressed: () {
-                    setState(() {});
+                    context.read<HomeBloc>().add(FilterProductListEvent());
                     Navigator.of(context).pop<bool>(true);
                   },
                   child: const Text(
@@ -79,11 +73,11 @@ class _BottomSheetViewState extends State<_BottomSheetView> {
                 subtitle: DropdownButton<String>(
                   isExpanded: true,
                   icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                  value: _selectedCategory,
+                  value: state.selectCategory,
                   onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedCategory = newValue;
-                    });
+                    context.read<HomeBloc>().add(SelectCategoryAndPriceEvent(
+                          selectCategory: newValue,
+                        ));
                   },
                   items: state.categories!
                       .map<DropdownMenuItem<String>>((String value) {
@@ -96,31 +90,35 @@ class _BottomSheetViewState extends State<_BottomSheetView> {
               );
             }),
             const SizedBox(height: 20),
-            ListTile(
-              title: const Text('Price',
-                  style: TextStyle(
-                      color: CustomColorScheme.customBottomNavColor,
-                      fontWeight: FontWeight.bold)),
-              subtitle: DropdownButton<String>(
-                isExpanded: true,
-                icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                value: _selectedPrice,
-                onChanged: (String? newValue) {
-                  if (newValue == null) {
-                    return;
-                  }
-                  setState(() {
-                    _selectedPrice = newValue;
-                  });
-                },
-                items:
-                    priceRanges.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return ListTile(
+                  title: const Text('Price',
+                      style: TextStyle(
+                          color: CustomColorScheme.customBottomNavColor,
+                          fontWeight: FontWeight.bold)),
+                  subtitle: DropdownButton<PriceRange>(
+                    isExpanded: true,
+                    icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                    value: state.selectPrice,
+                    onChanged: (PriceRange? newValue) {
+                      if (newValue == null) {
+                        return;
+                      }
+                      context.read<HomeBloc>().add(SelectCategoryAndPriceEvent(
+                            selectPrice: newValue,
+                          ));
+                    },
+                    items: PriceRange.values
+                        .map<DropdownMenuItem<PriceRange>>((PriceRange value) {
+                      return DropdownMenuItem<PriceRange>(
+                        value: value,
+                        child: Text(value.label),
+                      );
+                    }).toList(),
+                  ),
+                );
+              },
             ),
           ],
         ),

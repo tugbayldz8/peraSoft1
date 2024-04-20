@@ -35,3 +35,14 @@ final class LocationChangeEvent extends HomeEvent {
 
   const LocationChangeEvent(this.address);
 }
+
+final class FilterProductListEvent extends HomeEvent {}
+
+final class SelectCategoryAndPriceEvent extends HomeEvent {
+  final String? selectCategory;
+  final PriceRange? selectPrice;
+
+  const SelectCategoryAndPriceEvent({this.selectCategory, this.selectPrice});
+}
+
+final class ClearFilteredListEvent extends HomeEvent {}
