@@ -31,7 +31,6 @@ class ProductGridViewState extends State<ProductGridView> {
             ),
             itemBuilder: (context, index) {
               Product product = filteredProducts[index];
-
               return Card(
                 elevation: 0.1,
                 child: Stack(children: [

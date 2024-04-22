@@ -25,20 +25,22 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     on<LocationChangeEvent>(_selectAddress);
     on<FilterProductListEvent>(_filteredProductList);
     on<SelectCategoryAndPriceEvent>(_selectCategoryAndPrice);
-    on<ClearFilteredListEvent>((event, emit) {
-      safeEmit(HomeState(
-        error: state.error,
-        selectedCategory: state.selectedCategory,
-        categories: state.categories,
-        products: state.products,
-        cachedProducts: state.cachedProducts,
-        favoritesList: state.favoritesList,
-        selectedAddress: state.selectedAddress,
-        selectCategory: null,
-        selectPrice: null,
-        filteredProductList: null,
-      ));
-    });
+    on<ClearFilteredListEvent>(_clearFilteredList);
+  }
+
+  FutureOr<void> _clearFilteredList(event, emit) {
+    safeEmit(HomeState(
+      error: state.error,
+      selectedCategory: state.selectedCategory,
+      categories: state.categories,
+      products: state.products,
+      cachedProducts: state.cachedProducts,
+      favoritesList: state.favoritesList,
+      selectedAddress: state.selectedAddress,
+      selectCategory: null,
+      selectPrice: null,
+      filteredProductList: null,
+    ));
   }
 
   FutureOr<void> _selectCategoryAndPrice(event, emit) {
