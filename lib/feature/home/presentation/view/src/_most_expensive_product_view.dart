@@ -11,11 +11,10 @@ class _MostExpensiveProductView extends StatelessWidget {
       builder: (context, state) {
         if (state.products != null) {
           final allProduct = state.products;
-          final mostExpensiveCategory = state.selectedCategory == null
+          final mostExpensiveCategory = state.selectCategory == null
               ? allProduct
               : allProduct!
-                  .where(
-                      (product) => product.category == state.selectedCategory)
+                  .where((product) => product.category == state.selectCategory)
                   .toList();
           mostExpensiveCategory?.sort((a, b) {
             if (a.price == null || b.price == null) return 0;

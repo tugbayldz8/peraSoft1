@@ -10,7 +10,7 @@ class _FetchCategoryView extends StatelessWidget {
         if (state.products != null) {
           return _CategoryListViewBuilderView(
               categoryNames: state.categories!,
-              selectedCategory: state.selectedCategory ?? '');
+              selectedCategory: state.selectCategory ?? '');
         } else {
           return const Center(child: CircularProgressIndicator.adaptive());
         }

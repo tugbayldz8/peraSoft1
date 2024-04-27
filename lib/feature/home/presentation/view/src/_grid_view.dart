@@ -14,23 +14,18 @@ class ProductGridViewState extends State<ProductGridView> {
       builder: (context, state) {
         if (state.products != null) {
           final products = state.filteredProductList ?? state.products;
-          final filteredProducts = state.selectedCategory == null
-              ? products
-              : state.products!
-                  .where(
-                      (product) => product.category == state.selectedCategory)
-                  .toList();
+
           return GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: filteredProducts!.length,
+            itemCount: products!.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 4,
               crossAxisSpacing: 4,
             ),
             itemBuilder: (context, index) {
-              Product product = filteredProducts[index];
+              Product product = products[index];
               return Card(
                 elevation: 0.1,
                 child: Stack(children: [
@@ -103,9 +98,8 @@ class ProductGridViewState extends State<ProductGridView> {
                       right: 25,
                       child: BlocBuilder<HomeBloc, HomeState>(
                           builder: (context, state) {
-                        if (state.favoritesList == null) return Container();
-                        bool isFavorite =
-                            state.favoritesList!.contains(product);
+                        final isFavorite =
+                            state.favoritesList?.contains(product) ?? false;
                         return IconButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -114,13 +108,14 @@ class ProductGridViewState extends State<ProductGridView> {
                           ),
                           onPressed: () {
                             if (isFavorite) {
-                              return context
+                              context
                                   .read<HomeBloc>()
                                   .add(RemoveFavoriteSelectEvent(product));
+                            } else {
+                              context
+                                  .read<HomeBloc>()
+                                  .add(AddFavoriteEvent(product));
                             }
-                            context
-                                .read<HomeBloc>()
-                                .add(AddFavoriteEvent(product));
                           },
                           icon: Icon(
                             isFavorite

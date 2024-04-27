@@ -3,7 +3,6 @@ part of 'home_bloc.dart';
 final class HomeState extends Equatable {
   const HomeState({
     this.error,
-    this.selectedCategory,
     this.categories,
     this.products,
     this.filteredProductList,
@@ -15,7 +14,6 @@ final class HomeState extends Equatable {
   });
 
   final String? error;
-  final String? selectedCategory;
   final List<String>? categories;
   final List<Product>? products;
   final List<Product>? filteredProductList;
@@ -28,7 +26,6 @@ final class HomeState extends Equatable {
   @override
   List<Object?> get props => [
         error,
-        selectedCategory,
         categories,
         products,
         filteredProductList,
@@ -53,7 +50,6 @@ final class HomeState extends Equatable {
   }) {
     return HomeState(
       error: error ?? this.error,
-      selectedCategory: selectedCategory ?? this.selectedCategory,
       categories: categories ?? this.categories,
       products: products ?? this.products,
       filteredProductList: filteredProductList ?? this.filteredProductList,
