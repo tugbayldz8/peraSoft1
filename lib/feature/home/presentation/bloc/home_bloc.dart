@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/view/index.dart';
 import 'package:pera_soft1/product/base/model/base_bloc.dart';
 import 'package:pera_soft1/product/enums/price_range.dart';
-import 'package:pera_soft1/product/utils/cache/cache_enums.dart';
-import '../../../../product/utils/cache/cache_manager.dart';
+import 'package:pera_soft1/product/database/hive/constants/cache_enums.dart';
+import '../../../../product/database/hive/core/cache_manager.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

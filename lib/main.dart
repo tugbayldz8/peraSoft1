@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/view/index.dart';
 import 'package:pera_soft1/product/theme/bloc/theme_bloc.dart';
-import 'package:pera_soft1/product/utils/cache/cache_manager.dart';
 import 'package:pera_soft1/product/utils/service/service_manager.dart';
+import 'package:pera_soft1/product/database/hive/core/cache_manager.dart';
 import 'product/router/app_router.dart';
 
 Future<void> main() async {
