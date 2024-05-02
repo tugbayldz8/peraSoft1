@@ -10,7 +10,7 @@ class TopListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWidget(appBarTitle: StringConstants.enPahaliUrunler),
-      body: FutureBuilderWidget(),
+      body: const FutureBuilderWidget(),
     );
   }
 }

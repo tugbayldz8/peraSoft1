@@ -1,9 +1,7 @@
 part of '../home_page.dart';
 
 class _MostExpensiveProductView extends StatelessWidget {
-  _MostExpensiveProductView();
-
-  final productService = ProductService();
+  const _MostExpensiveProductView();
 
   @override
   Widget build(BuildContext context) {

@@ -71,7 +71,7 @@ final class AppRouter {
                         type: PageTransitionType.fade,
                       ).child;
                     },
-                    child: ListPage(),
+                    child: const ListPage(),
                   );
                 },
               ),

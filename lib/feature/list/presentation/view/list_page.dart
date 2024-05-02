@@ -5,9 +5,8 @@ import '../../../home/presentation/view/index.dart';
 import '../../index.dart';
 
 class ListPage extends StatelessWidget {
-  ListPage({super.key});
+  const ListPage({super.key});
 
-  final productService = ProductService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

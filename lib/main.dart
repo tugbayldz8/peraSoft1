@@ -3,6 +3,7 @@ import 'package:pera_soft1/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/view/index.dart';
 import 'package:pera_soft1/product/theme/bloc/theme_bloc.dart';
 import 'package:pera_soft1/product/utils/cache/cache_manager.dart';
+import 'package:pera_soft1/product/utils/service/service_manager.dart';
 import 'product/router/app_router.dart';
 
 Future<void> main() async {
@@ -13,7 +14,8 @@ Future<void> main() async {
       create: (context) => ThemeBloc(),
     ),
     BlocProvider(
-      create: (context) => HomeBloc(ProductService()),
+      create: (context) =>
+          HomeBloc(ProductService(serviceManager: ServiceManager())),
     ),
   ], child: MyApp()));
 }

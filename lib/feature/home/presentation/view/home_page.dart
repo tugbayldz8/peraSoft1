@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> with HomeBodyMixin {
                   headerRight: StringConstants.seeMore,
                 ),
                 SizedBox(height: context.defaultValue),
-                _MostExpensiveProductView(),
+                const _MostExpensiveProductView(),
                 SizedBox(height: context.defaultValue),
                 const FavoriteView(),
                 SizedBox(height: context.defaultValue),

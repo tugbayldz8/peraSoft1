@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:pera_soft1/product/base/widget/product_list_view_builder.dart';
 import '../../../home/data/models/product/product_model.dart';
-import '../../../home/data/repositories/services/product/product_service.dart';
 
 final class FutureBuilderWidget extends StatelessWidget {
-  FutureBuilderWidget({
+  const FutureBuilderWidget({
     super.key,
   });
-  final productService = ProductService();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
