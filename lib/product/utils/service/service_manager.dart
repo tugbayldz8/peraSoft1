@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:pera_soft1/product/base/model/base_response_model.dart';
+import 'package:pera_soft1/product/state/base/model/base_response_model.dart';
 
 interface class ServiceManager {
-  ServiceManager();
+  ServiceManager._();
+  static final _instance = ServiceManager._();
+  static ServiceManager get instance => _instance;
   final String baseUrl = 'https://fakestoreapi.com/';
 
   Future<BaseResponseModel<T>> get<T>(String path) async {

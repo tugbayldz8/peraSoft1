@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pera_soft1/feature/home/presentation/view/index.dart';
-import 'package:pera_soft1/product/base/model/base_bloc.dart';
+import 'package:pera_soft1/product/state/base/model/base_bloc.dart';
 
 part 'theme_event.dart';
 part 'theme_state.dart';

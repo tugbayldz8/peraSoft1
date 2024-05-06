@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/bloc/home_bloc.dart';
-import '../../../../product/base/widget/product_list_view_builder.dart';
+import '../../../../product/state/base/widget/product_list_view_builder.dart';
 import '../../../home/presentation/view/index.dart';
 import '../../index.dart';
 

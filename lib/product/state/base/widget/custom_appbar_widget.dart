@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/product/theme/bloc/theme_bloc.dart';
-import '../../theme/custom_color_scheme.dart';
+import '../../../theme/custom_color_scheme.dart';
 
 final class CustomAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {

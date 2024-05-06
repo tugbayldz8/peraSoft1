@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pera_soft1/product/base/model/base_model.dart';
+import 'package:pera_soft1/product/state/base/model/base_model.dart';
 part 'product_model.g.dart';
 
 @JsonSerializable()

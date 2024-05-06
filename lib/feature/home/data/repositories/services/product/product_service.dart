@@ -1,8 +1,7 @@
-import 'package:pera_soft1/product/base/model/base_response_model.dart';
+import 'package:pera_soft1/product/state/base/model/base_response_model.dart';
 import '../../../../../../product/utils/service/service_manager.dart';
 import '../../../models/product/product_model.dart';
 
-//Fix************************
 final class ProductService {
   ProductService({required ServiceManager serviceManager})
       : _serviceManager = serviceManager;
@@ -19,6 +18,19 @@ final class ProductService {
       return BaseResponseModel<T>(data: data);
     } else {
       return BaseResponseModel(error: 'Data is not a list');
+    }
+  }
+
+  Future<BaseResponseModel<T>> fetchCategories<T>() async {
+    final response = await _serviceManager.get<dynamic>('products/categories');
+    if (response.error != null) {
+      return BaseResponseModel<T>(error: response.error);
+    } else if (response.data is List) {
+      final data =
+          response.data.map((item) => item.toString()).cast<String>().toList();
+      return BaseResponseModel<T>(data: data);
+    } else {
+      return BaseResponseModel(error: 'There is error while fetch categories');
     }
   }
 }

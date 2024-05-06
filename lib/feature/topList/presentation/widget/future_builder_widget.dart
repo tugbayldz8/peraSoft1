@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/bloc/home_bloc.dart';
-import 'package:pera_soft1/product/base/widget/product_list_view_builder.dart';
+import 'package:pera_soft1/product/state/base/widget/product_list_view_builder.dart';
 import '../../../home/data/models/product/product_model.dart';
 
 final class FutureBuilderWidget extends StatelessWidget {

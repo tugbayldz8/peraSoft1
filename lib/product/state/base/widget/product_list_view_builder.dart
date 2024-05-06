@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../feature/home/data/models/product/product_model.dart';
+import '../../../../feature/home/data/models/product/product_model.dart';
 import 'package:pera_soft1/product/extensions/context_extensions.dart';
 
 final class ProductListViewBuilder extends StatelessWidget {

@@ -2,17 +2,17 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/view/index.dart';
-import 'package:pera_soft1/product/base/model/base_bloc.dart';
+import 'package:pera_soft1/product/state/base/model/base_bloc.dart';
 import 'package:pera_soft1/product/enums/price_range.dart';
 import 'package:pera_soft1/product/database/hive/constants/cache_enums.dart';
-import '../../../../product/database/hive/core/cache_manager.dart';
+import 'package:pera_soft1/product/state/container/product_state_items.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   late final ProductService _productService;
-
+  final cacheManager = ProductStateItems.cacheManager;
   HomeBloc(ProductService productService)
       : _productService = productService,
         super(const HomeState(
@@ -84,8 +84,8 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     if (state.favoritesList == null) return null;
     final favorites = List<Product>.from(state.favoritesList!);
     favorites.remove(event.product);
-    CacheManager.clearList<Product>(BoxName.product);
-    CacheManager.setDataList(favorites, BoxName.product);
+    cacheManager.clearList<Product>(BoxName.product);
+    cacheManager.setDataList(favorites, BoxName.product);
     safeEmit(state.copyWith(
       favoritesList: favorites,
     ));
@@ -93,7 +93,7 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
 
   FutureOr<void> _removeFavoriteAll(event, emit) {
     if (state.favoritesList == null) return null;
-    CacheManager.clearList<Product>(BoxName.product);
+    cacheManager.clearList<Product>(BoxName.product);
     safeEmit(state.copyWith(
       favoritesList: null,
     ));
@@ -104,8 +104,8 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     if (favoriteList.contains(event.item)) return null;
     final favorites = List<Product>.from(favoriteList);
     favorites.add(event.item);
-    CacheManager.clearList<Product>(BoxName.product);
-    CacheManager.setDataList<Product>(favorites, BoxName.product);
+    cacheManager.clearList<Product>(BoxName.product);
+    cacheManager.setDataList<Product>(favorites, BoxName.product);
     safeEmit(state.copyWith(favoritesList: favorites));
   }
 
@@ -121,7 +121,7 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _getFavorites(event, emit) {
-    final favorites = CacheManager.getDataList<Product>(BoxName.product);
+    final favorites = cacheManager.getDataList<Product>(BoxName.product);
     if (favorites.isNotEmpty) {
       safeEmit(
         state.copyWith(
@@ -133,13 +133,14 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
 
   FutureOr<void> _fetchProducts(event, emit) async {
     final response = await _productService.fetchProducts<List<Product>>();
-    if (response.error != null) {
+    final categories = await _productService.fetchCategories<List<String>>();
+    if (response.error != null && categories.error != null) {
       return safeEmit(state.copyWith(error: response.error));
     } else {
       return safeEmit(
         state.copyWith(
           products: response.data,
-          categories: FetchCategories.fetchCategories(response.data!),
+          categories: categories.data,
         ),
       );
     }

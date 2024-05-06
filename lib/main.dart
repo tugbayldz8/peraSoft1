@@ -1,21 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:pera_soft1/feature/home/presentation/view/index.dart';
+import 'package:pera_soft1/product/state/container/product_state_container.dart';
+import 'package:pera_soft1/product/state/container/product_state_items.dart';
 import 'package:pera_soft1/product/theme/bloc/theme_bloc.dart';
-import 'package:pera_soft1/product/utils/service/service_manager.dart';
 import 'package:pera_soft1/product/database/hive/core/cache_manager.dart';
 import 'product/router/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CacheManager.init();
+  Locator.setUp();
+  await CacheManager.instance.init();
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
       create: (context) => ThemeBloc(),
     ),
     BlocProvider(
-      create: (context) =>
-          HomeBloc(ProductService(serviceManager: ServiceManager())),
+      create: (context) => HomeBloc(ProductStateItems.productService),
     ),
   ], child: MyApp()));
 }
