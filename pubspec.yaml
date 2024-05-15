@@ -49,6 +49,8 @@ dependencies:
   bloc: ^8.1.4
   json_serializable: ^6.7.1
   json_annotation: ^4.8.1
+  firebase_auth: ^4.19.5
+  firebase_core: ^2.31.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

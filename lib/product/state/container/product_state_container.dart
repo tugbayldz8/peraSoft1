@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:pera_soft1/feature/home/data/repositories/services/product/product_service.dart';
 import 'package:pera_soft1/product/database/hive/core/cache_manager.dart';
+import 'package:pera_soft1/product/firebase/service/firebase_auth_service.dart';
 import 'package:pera_soft1/product/utils/service/service_manager.dart';
 
 abstract final class Locator {
@@ -10,6 +11,7 @@ abstract final class Locator {
     _getIt
       ..registerSingleton(CacheManager.instance)
       ..registerFactory(() => ProductService(serviceManager: _getIt()))
+      ..registerFactory(() => FirebaseAuthService())
       ..registerFactory(() => ServiceManager.instance);
   }
 
