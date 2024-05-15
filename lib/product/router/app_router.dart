@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:pera_soft1/feature/auth/register/presentation/view/register_page.dart';
 import 'package:pera_soft1/feature/bottom_nav/view/custom_bottom_nav_page.dart';
 import 'package:pera_soft1/feature/list/presentation/view/list_page.dart';
-import 'package:pera_soft1/feature/landing/presentation/view/landing_page.dart';
 import 'package:pera_soft1/feature/topList/presentation/view/topl_list_page.dart';
 import 'package:pera_soft1/product/router/router_paths.dart';
 
@@ -29,8 +29,7 @@ final class AppRouter {
     routes: [
       GoRoute(
         path: RouterPaths.initial.path,
-        builder: (BuildContext context, GoRouterState state) =>
-            const LandingPage(),
+        builder: (BuildContext context, GoRouterState state) => RegisterPage(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {
